@@ -39,6 +39,7 @@ ignore = ["E501"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["T20"]
 "scripts/**" = ["T20"]
+"src/cli.py" = ["T20"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 8

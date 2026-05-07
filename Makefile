@@ -1,4 +1,4 @@
-.PHONY: help up down lint format typecheck test test-unit test-integration check-architecture clean install
+.PHONY: help up down lint format typecheck test test-unit test-integration check-architecture clean install ingest
 
 help:
 	@echo "Targets:"
@@ -12,6 +12,7 @@ help:
 	@echo "  test-unit          Run unit tests only (no Docker)"
 	@echo "  test-integration   Run integration tests (requires Docker)"
 	@echo "  check-architecture Verify src/core/ has no infrastructure imports"
+	@echo "  ingest             Run the ingestion pipeline"
 	@echo "  clean              Remove caches and build artifacts"
 
 install:
@@ -50,6 +51,9 @@ test-integration:
 
 check-architecture:
 	bash scripts/check_architecture.sh
+
+ingest:
+	APP_MODE=walking-skeleton python -m src.cli ingest --subreddit $${SUBREDDIT:-technology} --limit $${LIMIT:-3}
 
 clean:
 	rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov coverage.xml build dist
